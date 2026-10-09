@@ -1,0 +1,114 @@
+<!-- Esempio di struttura dell'app generata -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Tracker - Strength & Running</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-4">
+    <div class="max-w-md mx-auto space-y-6">
+        <!-- Header -->
+        <header class="text-center py-4 border-b border-slate-800">
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                HYBRID TRACKER
+            </h1>
+            <p class="text-xs text-slate-400 mt-1">Forza + Corsa 10k Target 4:50</p>
+        </header>
+
+        <!-- Selezione Scheda -->
+        <div class="grid grid-cols-2 gap-3">
+            <button onclick="switchTab('schedaA')" id="btnA" class="py-3 rounded-xl font-semibold bg-blue-600 text-white shadow-lg">
+                Scheda A (Lun)
+            </button>
+            <button onclick="switchTab('schedaC')" id="btnC" class="py-3 rounded-xl font-semibold bg-slate-800 text-slate-400 hover:bg-slate-700">
+                Scheda C (Ven)
+            </button>
+        </div>
+
+        <!-- Contenuto Scheda A -->
+        <div id="schedaA" class="space-y-4">
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-lg text-blue-400">Pressa Panca Manubri</h3>
+                    <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">4 Set x 6-8 Reps</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center text-sm">
+                    <div class="bg-slate-900 p-2 rounded">
+                        <span class="block text-xs text-slate-500">Target</span>
+                        <span class="font-bold text-white">26 kg</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded">
+                        <span class="block text-xs text-slate-500">Riposo</span>
+                        <span class="font-bold text-emerald-400">01:45</span>
+                    </div>
+                    <div>
+                        <input type="number" placeholder="Kg effettivi" class="w-full h-full bg-slate-900 text-center rounded border border-slate-700 focus:border-blue-500 outline-none text-white font-bold">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-lg text-blue-400">Trazioni alla sbarra</h3>
+                    <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">3 Set x 6-10 Reps</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center text-sm">
+                    <div class="bg-slate-900 p-2 rounded">
+                        <span class="block text-xs text-slate-500">Target</span>
+                        <span class="font-bold text-white">Corpo Libero</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded">
+                        <span class="block text-xs text-slate-500">Riposo</span>
+                        <span class="font-bold text-emerald-400">01:30</span>
+                    </div>
+                    <div>
+                        <input type="number" placeholder="Reps fatte" class="w-full h-full bg-slate-900 text-center rounded border border-slate-700 focus:border-blue-500 outline-none text-white font-bold">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer di Recupero Interattivo -->
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 text-center space-y-2">
+            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Timer Recupero</span>
+            <div id="timerDisplay" class="text-4xl font-mono font-bold text-emerald-400">01:30</div>
+            <div class="flex justify-center gap-2 pt-2">
+                <button onclick="startTimer(90)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-sm">Start 90s</button>
+                <button onclick="startTimer(105)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-sm">Start 105s</button>
+                <button onclick="resetTimer()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium text-sm">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            document.getElementById('schedaA').classList.add('hidden');
+            document.getElementById('schedaC').classList.add('hidden');
+            document.getElementById(tabName).classList.remove('hidden');
+        }
+
+        let timerInterval;
+        function startTimer(seconds) {
+            clearInterval(timerInterval);
+            let time = seconds;
+            const display = document.getElementById('timerDisplay');
+            timerInterval = setInterval(() => {
+                const mins = Math.floor(time / 60).toString().padStart(2, '0');
+                const secs = (time % 60).toString().padStart(2, '0');
+                display.textContent = `${mins}:${secs}`;
+                if (--time < 0) {
+                    clearInterval(timerInterval);
+                    display.textContent = "TEMPO SCADUTO!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            document.getElementById('timerDisplay').textContent = "01:30";
+        }
+    </script>
+</body>
+</html>
