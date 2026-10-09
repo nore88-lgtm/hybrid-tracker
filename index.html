@@ -1,4 +1,3 @@
-<!-- Esempio di struttura dell'app generata -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,91 +5,315 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hybrid Tracker - Strength & Running</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen p-4">
-    <div class="max-w-md mx-auto space-y-6">
+<body class="bg-slate-900 text-slate-100 min-h-screen p-4 pb-12">
+    <div class="max-w-2xl mx-auto space-y-6">
+        
         <!-- Header -->
         <header class="text-center py-4 border-b border-slate-800">
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+            <h1 class="text-3xl font-extrabold bg-gradient-to-r from-blue-400 via-emerald-400 to-indigo-400 bg-clip-text text-transparent">
                 HYBRID TRACKER
             </h1>
-            <p class="text-xs text-slate-400 mt-1">Forza + Corsa 10k Target 4:50</p>
+            <p class="text-xs text-slate-400 mt-1 font-medium">Forza Full-Body + Programmazione Running 10k (Target 4:50)</p>
         </header>
 
-        <!-- Selezione Scheda -->
-        <div class="grid grid-cols-2 gap-3">
-            <button onclick="switchTab('schedaA')" id="btnA" class="py-3 rounded-xl font-semibold bg-blue-600 text-white shadow-lg">
-                Scheda A (Lun)
+        <!-- Navigazione Principale -->
+        <div class="flex rounded-xl bg-slate-800 p-1 border border-slate-700">
+            <button onclick="showSection('strength')" id="navStrength" class="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all bg-blue-600 text-white shadow">
+                🏋️ Forza & Pesi
             </button>
-            <button onclick="switchTab('schedaC')" id="btnC" class="py-3 rounded-xl font-semibold bg-slate-800 text-slate-400 hover:bg-slate-700">
-                Scheda C (Ven)
+            <button onclick="showSection('running')" id="navRunning" class="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-slate-400 hover:text-white">
+                🏃 Corsa & Cardio
+            </button>
+            <button onclick="showSection('history')" id="navHistory" class="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-slate-400 hover:text-white">
+                📊 Storico & Dati
             </button>
         </div>
 
-        <!-- Contenuto Scheda A -->
-        <div id="schedaA" class="space-y-4">
-            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
-                <div class="flex justify-between items-center">
-                    <h3 class="font-bold text-lg text-blue-400">Pressa Panca Manubri</h3>
-                    <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">4 Set x 6-8 Reps</span>
-                </div>
-                <div class="grid grid-cols-3 gap-2 text-center text-sm">
-                    <div class="bg-slate-900 p-2 rounded">
-                        <span class="block text-xs text-slate-500">Target</span>
-                        <span class="font-bold text-white">26 kg</span>
+        <!-- ================= SEZIONE FORZA ================= -->
+        <div id="sectionStrength" class="space-y-6">
+            
+            <!-- Selettore Scheda A / B / C -->
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="switchWorkout('A')" id="btnA" class="py-2.5 rounded-lg font-bold text-sm bg-blue-600/30 text-blue-400 border border-blue-500/50">
+                    Scheda A (Lun)
+                </button>
+                <button onclick="switchWorkout('B')" id="btnB" class="py-2.5 rounded-lg font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700 hover:bg-slate-750">
+                    Scheda B (Mer)
+                </button>
+                <button onclick="switchWorkout('C')" id="btnC" class="py-2.5 rounded-lg font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700 hover:bg-slate-750">
+                    Scheda C (Ven)
+                </button>
+            </div>
+
+            <!-- SCHEDA A -->
+            <div id="workoutA" class="space-y-4">
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-blue-400">Panca Piana / Inclinata Manubri</h3>
+                        <span class="text-xs bg-blue-950 text-blue-300 px-2.5 py-1 rounded-full font-mono">4 x 6-8 (Target 26kg)</span>
                     </div>
-                    <div class="bg-slate-900 p-2 rounded">
-                        <span class="block text-xs text-slate-500">Riposo</span>
-                        <span class="font-bold text-emerald-400">01:45</span>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Kg Usati</label>
+                            <input type="number" id="a1_kg" placeholder="es. 26" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps completate</label>
+                            <input type="text" id="a1_reps" placeholder="es. 8,8,7,6" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-blue-400">Trazioni alla Sbarra</h3>
+                        <span class="text-xs bg-blue-950 text-blue-300 px-2.5 py-1 rounded-full font-mono">3 x 6-10 (Corpo Libero)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Zavorra / Assistenza</label>
+                            <input type="text" id="a2_kg" placeholder="0 kg" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps per Serie</label>
+                            <input type="text" id="a2_reps" placeholder="es. 8,7,6" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-blue-400">Military Press / Shoulder Press</h3>
+                        <span class="text-xs bg-blue-950 text-blue-300 px-2.5 py-1 rounded-full font-mono">3 x 8-10</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Kg Usati</label>
+                            <input type="number" id="a3_kg" placeholder="es. 18" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps completate</label>
+                            <input type="text" id="a3_reps" placeholder="es. 10,9,8" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCHEDA B -->
+            <div id="workoutB" class="space-y-4 hidden">
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-emerald-400">Stacco da Terra / Romanian Deadlift</h3>
+                        <span class="text-xs bg-emerald-950 text-emerald-300 px-2.5 py-1 rounded-full font-mono">4 x 6-8</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Kg Usati</label>
+                            <input type="number" id="b1_kg" placeholder="es. 24" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps completate</label>
+                            <input type="text" id="b1_reps" placeholder="es. 8,8,8,8" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-emerald-400">Dip alle Parallele / Piegamenti</h3>
+                        <span class="text-xs bg-emerald-950 text-emerald-300 px-2.5 py-1 rounded-full font-mono">3 x 8-12</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Kg / Carico</label>
+                            <input type="text" id="b2_kg" placeholder="Corpo Libero" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps completate</label>
+                            <input type="text" id="b2_reps" placeholder="es. 12,10,10" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCHEDA C -->
+            <div id="workoutC" class="space-y-4 hidden">
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-indigo-400">Squat Bulgaro (Unilaterale)</h3>
+                        <span class="text-xs bg-indigo-950 text-indigo-300 px-2.5 py-1 rounded-full font-mono">3 x 6-8 (Target 22kg)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Kg Usati</label>
+                            <input type="number" id="c1_kg" placeholder="22" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps (Gamba SX / DX)</label>
+                            <input type="text" id="c1_reps" placeholder="es. 6/6, 6/6, 6/6" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-indigo-400">Single Leg Deadlift</h3>
+                        <span class="text-xs bg-indigo-950 text-indigo-300 px-2.5 py-1 rounded-full font-mono">3 x 6-8 (Target 22kg)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Kg Usati</label>
+                            <input type="number" id="c2_kg" placeholder="22" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps completate</label>
+                            <input type="text" id="c2_reps" placeholder="es. 6,6,6" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-indigo-400">Rematore con Manubri</h3>
+                        <span class="text-xs bg-indigo-950 text-indigo-300 px-2.5 py-1 rounded-full font-mono">3 x 8-10 (Target 22kg)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Kg Usati</label>
+                            <input type="number" id="c3_kg" placeholder="22" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Reps completate</label>
+                            <input type="text" id="c3_reps" placeholder="es. 10,10,9" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer Recupero -->
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 text-center space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Timer Recupero Esercizi</span>
+                    <span id="timerDisplay" class="text-3xl font-mono font-extrabold text-emerald-400">01:45</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="startTimer(90)" class="py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-bold">90s (Pesi)</button>
+                    <button onclick="startTimer(105)" class="py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold">105s (Target)</button>
+                    <button onclick="resetTimer()" class="py-2 bg-slate-900 hover:bg-slate-950 rounded-lg text-xs font-bold text-slate-400">Reset</button>
+                </div>
+            </div>
+
+            <button onclick="saveStrengthSession()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-white shadow-lg transition">
+                💾 Salva Allenamento Forza
+            </button>
+        </div>
+
+        <!-- ================= SEZIONE CORSA ================= -->
+        <div id="sectionRunning" class="space-y-6 hidden">
+            <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+                <h3 class="font-bold text-emerald-400 text-lg border-b border-slate-700 pb-2">Registra Sessione Running</h3>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Tipo Uscita</label>
+                        <select id="runType" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-semibold">
+                            <option value="Lungo Aerobico">Lungo Aerobico (Z2/Z3)</option>
+                            <option value="Ripetute / Qualità">Ripetute / Qualità</option>
+                            <option value="Benchmark Test">Benchmark Test Garmin</option>
+                            <option value="Gara / Test 10k">Test 10k Target</option>
+                        </select>
                     </div>
                     <div>
-                        <input type="number" placeholder="Kg effettivi" class="w-full h-full bg-slate-900 text-center rounded border border-slate-700 focus:border-blue-500 outline-none text-white font-bold">
+                        <label class="block text-xs text-slate-400 mb-1">Distanza (km)</label>
+                        <input type="number" step="0.01" id="runDistance" placeholder="es. 10.5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-semibold">
                     </div>
                 </div>
-            </div>
 
-            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
-                <div class="flex justify-between items-center">
-                    <h3 class="font-bold text-lg text-blue-400">Trazioni alla sbarra</h3>
-                    <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">3 Set x 6-10 Reps</span>
-                </div>
-                <div class="grid grid-cols-3 gap-2 text-center text-sm">
-                    <div class="bg-slate-900 p-2 rounded">
-                        <span class="block text-xs text-slate-500">Target</span>
-                        <span class="font-bold text-white">Corpo Libero</span>
-                    </div>
-                    <div class="bg-slate-900 p-2 rounded">
-                        <span class="block text-xs text-slate-500">Riposo</span>
-                        <span class="font-bold text-emerald-400">01:30</span>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Passo Medio (min/km)</label>
+                        <input type="text" id="runPace" placeholder="es. 5:45 o 4:15" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-semibold">
                     </div>
                     <div>
-                        <input type="number" placeholder="Reps fatte" class="w-full h-full bg-slate-900 text-center rounded border border-slate-700 focus:border-blue-500 outline-none text-white font-bold">
+                        <label class="block text-xs text-slate-400 mb-1">Frequenza Cardiaca Media (bpm)</label>
+                        <input type="number" id="runHr" placeholder="es. 159" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-semibold">
                     </div>
                 </div>
+
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Note e Percezione Sforzo (RPE 1-10)</label>
+                    <textarea id="runNotes" rows="2" placeholder="es. Gambe buone, tenuto passo 6:00 per proteggere il recupero..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm"></textarea>
+                </div>
+
+                <button onclick="saveRunSession()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-bold text-white shadow-lg transition">
+                    🏃 Salva Sessione Corsa
+                </button>
             </div>
         </div>
 
-        <!-- Timer di Recupero Interattivo -->
-        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 text-center space-y-2">
-            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Timer Recupero</span>
-            <div id="timerDisplay" class="text-4xl font-mono font-bold text-emerald-400">01:30</div>
-            <div class="flex justify-center gap-2 pt-2">
-                <button onclick="startTimer(90)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-sm">Start 90s</button>
-                <button onclick="startTimer(105)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-sm">Start 105s</button>
-                <button onclick="resetTimer()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium text-sm">Reset</button>
+        <!-- ================= SEZIONE STORICO ================= -->
+        <div id="sectionHistory" class="space-y-4 hidden">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-slate-200 text-lg">Registro Attività</h3>
+                <button onclick="clearHistory()" class="text-xs text-red-400 hover:underline">Svuota Storico</button>
+            </div>
+
+            <div id="historyList" class="space-y-3">
+                <!-- Verrà popolato dinamicamente -->
             </div>
         </div>
+
     </div>
 
     <script>
-        function switchTab(tabName) {
-            document.getElementById('schedaA').classList.add('hidden');
-            document.getElementById('schedaC').classList.add('hidden');
-            document.getElementById(tabName).classList.remove('hidden');
+        let currentWorkout = 'A';
+        let timerInterval;
+
+        function showSection(section) {
+            document.getElementById('sectionStrength').classList.add('hidden');
+            document.getElementById('sectionRunning').classList.add('hidden');
+            document.getElementById('sectionHistory').classList.add('hidden');
+            
+            document.getElementById('navStrength').className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-slate-400 hover:text-white";
+            document.getElementById('navRunning').className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-slate-400 hover:text-white";
+            document.getElementById('navHistory').className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all text-slate-400 hover:text-white";
+
+            if(section === 'strength') {
+                document.getElementById('sectionStrength').classList.remove('hidden');
+                document.getElementById('navStrength').className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all bg-blue-600 text-white shadow";
+            } else if(section === 'running') {
+                document.getElementById('sectionRunning').classList.remove('hidden');
+                document.getElementById('navRunning').className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all bg-emerald-600 text-white shadow";
+            } else if(section === 'history') {
+                document.getElementById('sectionHistory').classList.remove('hidden');
+                document.getElementById('navHistory').className = "flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all bg-indigo-600 text-white shadow";
+                loadHistory();
+            }
         }
 
-        let timerInterval;
+        function switchWorkout(letter) {
+            currentWorkout = letter;
+            document.getElementById('workoutA').classList.add('hidden');
+            document.getElementById('workoutB').classList.add('hidden');
+            document.getElementById('workoutC').classList.add('hidden');
+
+            document.getElementById('btnA').className = "py-2.5 rounded-lg font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700";
+            document.getElementById('btnB').className = "py-2.5 rounded-lg font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700";
+            document.getElementById('btnC').className = "py-2.5 rounded-lg font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700";
+
+            if(letter === 'A') {
+                document.getElementById('workoutA').classList.remove('hidden');
+                document.getElementById('btnA').className = "py-2.5 rounded-lg font-bold text-sm bg-blue-600/30 text-blue-400 border border-blue-500/50";
+            } else if(letter === 'B') {
+                document.getElementById('workoutB').classList.remove('hidden');
+                document.getElementById('btnB').className = "py-2.5 rounded-lg font-bold text-sm bg-emerald-600/30 text-emerald-400 border border-emerald-500/50";
+            } else if(letter === 'C') {
+                document.getElementById('workoutC').classList.remove('hidden');
+                document.getElementById('btnC').className = "py-2.5 rounded-lg font-bold text-sm bg-indigo-600/30 text-indigo-400 border border-indigo-500/50";
+            }
+        }
+
         function startTimer(seconds) {
             clearInterval(timerInterval);
             let time = seconds;
@@ -101,13 +324,80 @@
                 display.textContent = `${mins}:${secs}`;
                 if (--time < 0) {
                     clearInterval(timerInterval);
-                    display.textContent = "TEMPO SCADUTO!";
+                    display.textContent = "RECUPERATO!";
                 }
             }, 1000);
         }
+
         function resetTimer() {
             clearInterval(timerInterval);
-            document.getElementById('timerDisplay').textContent = "01:30";
+            document.getElementById('timerDisplay').textContent = "01:45";
+        }
+
+        function saveStrengthSession() {
+            const date = new Date().toLocaleDateString('it-IT');
+            const data = {
+                type: `Forza - Scheda ${currentWorkout}`,
+                date: date,
+                details: `Scheda ${currentWorkout} salvata.`
+            };
+            saveToStorage(data);
+            alert(`Scheda ${currentWorkout} salvata nello storico!`);
+        }
+
+        function saveRunSession() {
+            const date = new Date().toLocaleDateString('it-IT');
+            const type = document.getElementById('runType').value;
+            const dist = document.getElementById('runDistance').value;
+            const pace = document.getElementById('runPace').value;
+            const hr = document.getElementById('runHr').value;
+            const notes = document.getElementById('runNotes').value;
+
+            if(!dist || !pace) {
+                alert("Inserisci almeno distanza e passo!");
+                return;
+            }
+
+            const data = {
+                type: `Corsa: ${type}`,
+                date: date,
+                details: `${dist} km @ ${pace} min/km | FC Med: ${hr || 'N/D'} bpm. Note: ${notes}`
+            };
+            saveToStorage(data);
+            alert("Sessione di Corsa salvata!");
+        }
+
+        function saveToStorage(item) {
+            let history = JSON.parse(localStorage.getItem('hybridHistory') || '[]');
+            history.unshift(item);
+            localStorage.setItem('hybridHistory', JSON.stringify(history));
+        }
+
+        function loadHistory() {
+            const container = document.getElementById('historyList');
+            let history = JSON.parse(localStorage.getItem('hybridHistory') || '[]');
+            
+            if(history.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">Nessun allenamento registrato.</p>`;
+                return;
+            }
+
+            container.innerHTML = history.map(item => `
+                <div class="bg-slate-800 p-3.5 rounded-xl border border-slate-700 space-y-1">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-bold text-blue-400">${item.type}</span>
+                        <span class="text-slate-500 font-mono">${item.date}</span>
+                    </div>
+                    <p class="text-sm text-slate-200 font-medium">${item.details}</p>
+                </div>
+            `).join('');
+        }
+
+        function clearHistory() {
+            if(confirm("Vuoi cancellare tutto lo storico?")) {
+                localStorage.removeItem('hybridHistory');
+                loadHistory();
+            }
         }
     </script>
 </body>
